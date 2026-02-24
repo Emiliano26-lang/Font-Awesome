@@ -15,8 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate icon requests
-        run: |
-          python scripts/validate_icons.py .github/DISCUSSION_TEMPLATE/icon-requests.yml
+        run: python scripts/validate_icons.py .github/DISCUSSION_TEMPLATE/icon-requests.yml
 
       - name: Build font files
         run: |
