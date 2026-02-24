@@ -1,0 +1,30 @@
+name: Font Awesome Custom Icons
+
+on:
+  push:
+    paths:
+      - ".github/DISCUSSION_TEMPLATE/icon-requests.yml"
+      - "icons/**"
+  workflow_dispatch:
+
+jobs:
+  build-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Validate icon requests
+        run: |
+          python scripts/validate_icons.py .github/DISCUSSION_TEMPLATE/icon-requests.yml
+
+      - name: Build font files
+        run: |
+          npm install
+          npm run build:icons
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: custom-font-awesome-icons
+          path: dist/fonts/*
